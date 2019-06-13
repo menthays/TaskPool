@@ -1,6 +1,4 @@
 ## Latest
 #### :house: Internal
-* Balabala
-
-#### :bug: Bug Fix
-* It's not a bug! It's a FEATURE.
+* Basically finish. (TaskPool.newTask/finishTask/abortTast)
+* Add unit test

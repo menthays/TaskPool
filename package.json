@@ -1,11 +1,11 @@
 {
-  "name": "typescript-react-library-starter",
-  "version": "1.0.0",
+  "name": "@menthays/taskpool",
+  "version": "0.1.0",
   "license": "MIT",
-  "description": "Scaffold for writing library in typescript with coooool tools.",
+  "description": "taskpool to manage timer task",
   "repository": {
     "type": "git",
-    "url": "https://github.com/menthays/typescript-react-library-starter.git"
+    "url": "https://github.com/menthays/TaskPool"
   },
   "scripts": {
     "docz:dev": "docz dev",

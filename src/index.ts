@@ -13,8 +13,8 @@ export default class TaskPool {
   public ttl: number;
   private _pool: Map<string, Task>;
 
-  constructor(ttl?: number) {
-    this.ttl = ttl || 15*1000;
+  constructor(defaultTTL?: number) {
+    this.ttl = defaultTTL || 15*1000;
     this._pool = new Map()
   }
 
@@ -51,14 +51,17 @@ export default class TaskPool {
   }
 
   private _endTask(abort: boolean, taskKey: string, callback?: (taskPayload: TaskPayload) => void): boolean {
-    if (this._pool.has(taskKey)) {
+    if (!this._pool.has(taskKey)) {
       return false
     }
 
     const task = this._pool.get(taskKey) as Task
     const {payload, _timer, execution} = task
     _timer && clearTimeout(_timer)
-    if (!abort && callback) {
+    if (!abort && execution) {
+      execution(payload)
+    }
+    if (callback) {
       callback(payload)
     }
     this._pool.delete(taskKey)

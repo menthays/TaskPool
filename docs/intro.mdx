@@ -6,25 +6,36 @@ order: 1
 
 # Introduction
 
-*Hellow World* - A useless library
+_TaskPool_ manage timer tasks
 
 ## Install
-
-> Note: It's really useless
 
 ### With npm
 
 ```sh
-npm i <your-lib-name-like-HelloWorld>
+npm i @menthays/taskpool
 ```
-
 
 ## Quick Examples
 
 ```js
-import { helloworld } from '<your-lib-name-like-<HelloWorld>';
+import TaskPool from "@menthays/taskpool";
 ```
 
 ```js
-helloworld()
+const pool = new TaskPool();
+pool.newTask("goto", { dest: "disney" }, console.log, 5000);
+pool.finishTask("goto", _ => console.log('Execute ahead of time'));
+// {"dest": "disney"}
+// Execute ahead of time
 ```
+
+or 
+
+```js
+const pool = new TaskPool();
+pool.newTask("goto", { dest: "disney" }, console.log, 5000);
+pool.abortTask("goto", _ => console.log('Abort Task'));
+// Abort Task
+```
+

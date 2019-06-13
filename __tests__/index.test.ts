@@ -18,4 +18,43 @@ describe('Basic Test', () => {
     }
     throw new Error()
   })
+
+  it('New Task', (done) => {
+    const pool = new TaskPool();
+    const cb = jest.fn()
+    const result1 = pool.newTask('go', {dest: 'disney'}, cb, 1000)
+    const result2 = pool.newTask('go', {dest: 'disney'}, cb, 1000)
+    expect(result1).toBeTruthy()
+    expect(result2).toBeFalsy()
+    setTimeout(() => {
+      expect(cb).toBeCalledWith({dest: 'disney'})
+      done()
+    }, 1500)
+  })
+
+  it('Finish Task', (done) => {
+    const pool = new TaskPool();
+    const cb = jest.fn()
+    const cb2 = jest.fn()
+    pool.newTask('go', {dest: 'disney'}, cb, 10000)
+    pool.finishTask('go', cb2)
+    setTimeout(() => {
+      expect(cb).toBeCalledWith({dest: 'disney'})
+      expect(cb2).toBeCalledWith({dest: 'disney'})
+      done()
+    }, 100)
+  })
+
+  it('Abort Task', (done) => {
+    const pool = new TaskPool();
+    const cb = jest.fn()
+    const cb2 = jest.fn()
+    pool.newTask('go', {dest: 'disney'}, cb, 100)
+    pool.abortTask('go', cb2)
+    setTimeout(() => {
+      expect(cb).not.toBeCalled()
+      expect(cb2).toBeCalledWith({dest: 'disney'})
+      done()
+    }, 500)
+  })
 })
